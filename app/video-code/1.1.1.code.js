@@ -6,17 +6,19 @@
  */
 
 const people = ['Robert', 'Arya', ['Catelyn' ], 'Tyrion'];
-let lives = 3;
+const lives = 3;
 
-
-function playerLostImpure() {
-  lives--;
+function playerLostImpure(lives) {
+  return lives - 1;
 }
 
 
-function addPersonImpure() {
-  people.push(name);
+function addPersonImpure(list, ...name) {
+  return [...list, ...name];
 }
 
 
-//debugger;
+// let playerLives = playerLostImpure(lives);
+const peopleCopy = addPersonImpure(people, 'hey', 'hi');
+
+debugger;

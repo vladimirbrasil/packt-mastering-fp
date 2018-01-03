@@ -9,16 +9,48 @@ import {lens, set, view, map, when, is, curry, assoc, prop, lensProp, lensPath} 
 const {assert, log} = console;
 
 // The same object from last example.
-const state = freezer(pokerTable());
+// const state = freezer(pokerTable());
+const state = pokerTable();
 
 // A function to log out table details.
 logOut(state, 'initial object');
 
+// const getter = curry((propName, obj) => {
+//   return is(Object, obj) ? obj[propName] : undefined;
+// });
+const getter = prop;
 
-//debugger;
+// const setter = curry((key, val, obj) => {
+//   const rv = mapObjIndexed(identity, obj); //copy
+//   rv[key] = val;
+//   return rv;
+// });
+const setter = assoc;
 
+// const anteL = lens(getter('ante'), setter('ante'));
+const anteL = lensProp('ante');
+const chipValuesL = lensProp('chipValues');
+const greenL = lensProp('green');
+// const chipValsGreenL = obj => chipValuesL(greenL(obj));
+const chipValsGreenL = lensPath(['chipValues', 'green']);
+const player0chipsL = lensPath(['players', '0', 'chips']);
 
+// To view: view(lens, state);
+// To set:  newObj = set(lens, value, {});
 
+const state2 = set(anteL, 100, state);
+
+logOut(state2, 'state2');
+
+const state3 = set(chipValsGreenL, 400, state2);
+
+logOut(state3, 'state3');
+
+const state4 = set(player0chipsL, 999, state3);
+
+logOut(state4, 'state4');
+
+debugger;
 
 /**
  * Deep freeze an object

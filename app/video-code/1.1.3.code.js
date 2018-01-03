@@ -38,6 +38,27 @@ function surfaceAreaCylinder(diameter, height) {
   return sum(topBottom, areaSide);
 }
 
+function getDimensions(heightSel, diamSel) {
 
+  return function impureDimens() {
+    const height = document.querySelector(heightSel);
+    const diameter = document.querySelector(diamSel);
+  
+    if (!diameter || !height) {
+      return void(0);
+    }
+  
+    return [height.value, diameter.value];
+  }
+}
 
-//debugger;
+//pure
+const dimens = getDimensions('.height', '.diameter');
+
+//impure
+const hd = dimens();
+
+//do something with the results
+const area = surfaceAreaCylinder(hd[1], hd[0]);
+
+debugger;

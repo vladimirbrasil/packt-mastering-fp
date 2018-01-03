@@ -4,14 +4,14 @@
  *     section 4, video 1:
  *         Mutable and Immutable API
  */
-import {filter} from 'ramda';
+import { filter } from 'ramda';
 
 
 let state = {
   players: [
-    {folded: false, chips: 205, name: 'Thomas', cards: []},
-    {folded: false, chips: 110, name: 'Graham', cards: []},
-    {folded: false, chips: 450, name: 'Wendy', cards: []}
+    { folded: false, chips: 205, name: 'Thomas', cards: [] },
+    { folded: false, chips: 110, name: 'Graham', cards: [] },
+    { folded: false, chips: 450, name: 'Wendy', cards: [] }
   ],
 
   phase: 0,  // 'pre-flop'
@@ -28,4 +28,22 @@ let state = {
 };
 
 
-export default {};
+export default {
+  getPlayers() {
+    return state.players.slice(0);
+  },
+
+  removePlayer(name) {
+    return filter(player => player.name !== name, state.players);
+  },
+
+  addPlayer(name) {
+    const players = this.getPlayers();
+    players.push({ chips: 0, name });
+    return players
+  },
+
+  getState() {
+    return state;
+  },
+};
