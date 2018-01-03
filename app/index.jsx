@@ -2,7 +2,7 @@
 /**
  *  app/index.js
  */
-import code from './video-code/1.4.4.code';
+import code from './video-code/1.4.4b.code';
 
 /**
  * IF YOU SEE THIS HTML AFTER STARTING DEV SERVER

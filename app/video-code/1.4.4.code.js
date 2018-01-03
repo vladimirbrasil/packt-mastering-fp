@@ -4,9 +4,32 @@
  *     section 4, video 4:
  *         Using JSX and Virtual DOM
  */
-import html, {renderDOM} from './1.4.3.code';
+// import html from './1.4.3.code';
 import {lensProp, view, set, sum} from 'ramda';
 import { setTimeout } from 'timers';
+
+import makeElem from 'virtual-dom/h';
+import patch from 'virtual-dom/patch';
+import diff from 'virtual-dom/diff';
+import buildHTML from 'virtual-dom/create-element';
+
+export function renderDOM(stateToUI, root, defState = {}) {
+
+  const initUI = stateToUI(defState);
+  root.appendChild(initUI);
+
+  return (state) => {
+    if (root.hasChildNodes()) {
+      root.removeChild(root.firstElementChild);
+    }
+    root.appendChild(stateToUI(state));
+  }
+}
+
+export default function html(elementType, props, ...children) {
+  // Create an element for ui
+  return makeElem(elementType, props, children);
+};
 
 const counterL = lensProp('counter');
 
